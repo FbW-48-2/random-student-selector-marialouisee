@@ -23,34 +23,40 @@ const imageUrls = [
 
 const students = ['Aimee', 'Beda', 'Carlos', 'Christoph','Dalibor', 'Daniel', 'Francesco', 'Habid', 'Jonathan', 'Mo', 'Norman', 'Priya', 'Martin', 'Shinhee', 'Shreekesh', 'Tim', 'Lucas',  'Lui']
 
-const h1 = document.querySelector('#h1')
-const btn = document.querySelector('#btn')
-const img = document.querySelector("#img")
 
-const getRandomName = (names) => {
-    return names[Math.floor(Math.random() * students.length)]
-}
-const getRandomImage = (images) => {
-    return images[Math.floor(Math.random() * images.length)]
-}
+class StudentPicker {
+    constructor(imagesArr, studentsArr){
+        this.images = imagesArr;
+        this.students = studentsArr;
+        this.h1 = document.querySelector('#h1');
+        this.img = document.querySelector("#img")
+        // this.btn = document.querySelector('#btn')
+    }
 
-const updateHTML = () => {
+    getRandomName(){
+        return this.students[Math.floor(Math.random() * this.students.length)]
+    }
+
+    getRandomImage(){
+        return this.images[Math.floor(Math.random() * this.images.length)]
+    }
+
     
+    updateHTML(){
+        h1.innerText = this.getRandomName()
+        img.src = this.getRandomImage()
+    }
 
-    let interval = setInterval(function(){
-        h1.innerText = getRandomName(students)
-    }, 100)
-
-    setTimeout(function(){
-        clearInterval(interval)
-        img.src = getRandomImage(imageUrls)
-    }, 4000)
-    // img.src = getRandomImage(imageUrls)
-
+    spin(){
+        // setInterval(this.updateHTML, 3000)
+    }
 }
+
+const btn = document.querySelector('#btn')
+
+const ohNoPicker = new StudentPicker(imageUrls, students)
+
 
 btn.addEventListener('click', (e)=>{
-
-    updateHTML()
-
+    ohNoPicker.spin()
 })
