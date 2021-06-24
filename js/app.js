@@ -23,9 +23,10 @@ const imageUrls = [
 
 const students = ['Aimee', 'Beda', 'Carlos', 'Christoph','Dalibor', 'Daniel', 'Francesco', 'Habid', 'Jonathan', 'Mo', 'Norman', 'Priya', 'Martin', 'Shinhee', 'Shreekesh', 'Tim', 'Lucas',  'Lui']
 
-const h1 = document.querySelector('#h1')
-const btn = document.querySelector('#btn')
-const img = document.querySelector("#img")
+const body = document.querySelector("body")
+const h1 = body.querySelector('#h1')
+const btn = body.querySelector('#btn')
+const img = body.querySelector("#img")
 
 const getRandomName = (names) => {
     return names[Math.floor(Math.random() * students.length)]
@@ -36,15 +37,42 @@ const getRandomImage = (images) => {
 
 const updateHTML = () => {
     
-
     let interval = setInterval(function(){
         h1.innerText = getRandomName(students)
     }, 100)
 
     setTimeout(function(){
         clearInterval(interval)
-        img.src = getRandomImage(imageUrls)
     }, 4000)
+
+    setTimeout(function(){
+
+        let intervalImages = setInterval(function (){
+
+            let item = document.createElement('img');
+            item.src = getRandomImage(imageUrls)
+
+            item.classList.add('images');
+            body.appendChild(item);
+
+            let x = Math.random()*100;
+            let y = Math.random()*100;
+            item.style.left = `${x-10}%`;
+            item.style.bottom= `${y-10}%`;
+
+            h1.style.fontSize = "200px"
+            h1.style.borderRadius = " 20px"
+            h1.style.color = 'white'
+
+        }, 100)
+
+
+        setTimeout(function(){
+            clearInterval(intervalImages)
+        }, 7000)
+
+
+    },6000)
     // img.src = getRandomImage(imageUrls)
 
 }
